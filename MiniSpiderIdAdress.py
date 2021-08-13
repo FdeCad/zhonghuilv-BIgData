@@ -10,21 +10,23 @@ import requests
 from bs4 import BeautifulSoup
 
 def GetUrl(url):
-    response=requests.get(url)
-    print(response.status_code)
-    return response
+    response=requests.get(url)       #无反爬，直接get
+    # print(response.status_code)      #打印返回状态码
+    return response  #返回响应内容
 
 def ParseResponse(response):
     soup=BeautifulSoup(response.text,'lxml')
     td=soup.find_all('td')
-    print(td[0])
-    dic={}
-    a=0
+    dic={}     #定义空字典
+    a=0        #计数器
     while(a<len(td)):
         dic[td[a].get_text()]=td[a+1].get_text()
-        a=a+2
-    return dic
+        a=a+2   #两个一组，所以＋2
+    return dic   #返回值，字典类型
 
-url='http://www.mca.gov.cn/article/sj/xzqh/1980/2019/202002281436.html'
-res=GetUrl(url)
+# url='http://www.mca.gov.cn/article/sj/xzqh/1980/2019/202002281436.html'  #爬取网址
+'''
+#直接运行
+res=GetUrl(url)           
 ParseResponse(res)
+'''
