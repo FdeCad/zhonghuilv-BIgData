@@ -8,6 +8,7 @@
 
 import requests
 from bs4 import BeautifulSoup
+import json
 
 def GetUrl(url):
     response=requests.get(url)       #无反爬，直接get
@@ -24,9 +25,10 @@ def ParseResponse(response):
         a=a+2   #两个一组，所以＋2
     return dic   #返回值，字典类型
 
-# url='http://www.mca.gov.cn/article/sj/xzqh/1980/2019/202002281436.html'  #爬取网址
-'''
+url='http://www.mca.gov.cn/article/sj/xzqh/1980/2019/202002281436.html'  #爬取网址
 #直接运行
 res=GetUrl(url)           
-ParseResponse(res)
-'''
+dic=ParseResponse(res)
+jsa=json.dumps(dic,ensure_ascii=False)
+with open('地区代码.json','w',encoding='utf-8') as f:
+    f.write(jsa)
